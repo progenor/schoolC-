@@ -1,0 +1,97 @@
+///////harder way
+        //masolat
+        for(j =0; s[j]!='\0'; j++)
+            clone[j] = s[j];
+        clone[j]='\0';
+        char h = j;
+        //ellenorzes
+        bool van = false;
+        for(j =0; s[j]!='\0'; j++)
+        {
+            if(mh[i] == clone[j])
+            {
+                van = true;
+                for(m=j;m<h;m++)
+                {
+                    clone[m]=clone[m+1];
+                }
+                h--;
+
+            }
+        }
+        if(van)
+            cout<<clone<<" ";
+
+
+
+   char s1[101], s2[101];
+    int i,j, h1=0, h2=0;
+
+    cin>>s1>>s2;
+    //szamolgatunk
+    for(i=0;s1[i]!='\0';i++)h1++;
+    for(i=0;s2[i]!='\0';i++)h2++;
+    i=h1;
+    j=h2;
+    //nezzuk mig nem egyenlo egymassal
+    while(s1[i]==s2[j])
+    {
+        i--;
+        j--;
+    }
+    for(i++;i<h1;i++)
+        cout<<s1[i];
+
+
+    //simpler way ---DO THIS
+    char s[21], mh[]="aeiou", clone[21], i ,j , m,h;
+    cin>>s;
+
+    for(i =0; i<5;i++)
+    {
+        h=0;
+        for(j=0;s[j]!='\0';j++)
+            if(s[j]!=mh[i])
+                clone[h++]=s[j];
+        clone[h]='\0';
+            if(h<j)
+                cout<<clone<<" ";
+
+
+  char s[51];
+    int i=0,j,h=0;
+
+    cin>>s;
+
+    while(s[i]!='\0')i++;
+    h=i;
+    for(i=h-1;i>=0;i--)
+    {
+        for(j=i;j<=h;j++)
+            cout<<s[j];
+        cout<<endl;
+    }
+
+
+
+ //pointers
+
+ char s[100]="almasteszta", *p;
+ p=s;
+
+
+ //kirja ma
+ // cout<< *(s+2) << *(s+3);
+ // kiirja ma
+ // cout<< *(p+2) << *(p+3);
+ //kiirja attol a poziciotol  "teszta"
+ // cout<<p+5;
+ int i=0;
+ while(s[i]!='\0')i++;
+ while(i>=0)
+ {
+     cout<<s+i<<endl;
+     i--;
+ }
+
+
