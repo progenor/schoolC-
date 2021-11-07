@@ -1,0 +1,765 @@
+Baze1
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <set>
+#include <map>
+
+using namespace std;
+
+int main()
+{
+    ifstream f("baze1.in");
+    ofstream g("baze1.out");
+    long long b1, b2, num1 = 0, num2 = 0;
+    char n1[100000], n2[100000];
+    f >> b1 >> b2 >> n1 >> n2;
+
+    for (int i = 0; i < strlen(n1); i++)
+        num1 = num1 * b1 + n1[i] - '0';
+    for (int i = 0; i < strlen(n2); i++)
+        num2 = num2 * b2 + n2[i] - '0';
+
+    int total;
+    total = num1 + num2;
+    g << total;
+
+    return 0;
+}
+
+
+pbinfo
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+
+    ifstream f("pbinfo.in");
+    ofstream g("pbinfo.out");
+
+    char s[1001], temp[1000], arr[1000][1000];
+    int n;
+    f.getline(s, 1000);
+    f >> n;
+    f.getline(temp, 100);
+    for (int i = 0; i < n; i++)
+    {
+        f.getline(temp, 1000);
+        strcpy(arr[i], temp);
+    }
+    bool vir = false;
+    if (strstr(s, "virus") != NULL)
+        vir = true;
+    bool bingo = false;
+    if (vir == false)
+        for (int i = 0; i < n && bingo == false; i++)
+        {
+            if (strstr(s, arr[i]) != NULL)
+            {
+                bingo = true;
+                cout << strstr(s, arr[i]) << " ";
+            }
+        }
+    if (vir || bingo)
+        g << "DA";
+    else
+        g << "NU";
+
+    return 0;
+}
+
+cuvinte0
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    map<string, int> mp;
+    char s[1000], temp[1000], t[1000][1000];
+    char *p;
+    cin.getline(s, 1000);
+    int i = 0, words = 0;
+    p = strtok(s, " ");
+    while (p)
+    {
+        if (mp.begin() == mp.end())
+        {
+            mp[p] = 0;
+        }
+        mp[p]++;
+        p = strtok(NULL, " ");
+    }
+    words = i;
+
+    for (auto i = mp.begin(); i != mp.end(); i++)
+        cout << i->first << endl;
+
+    return 0;
+}
+
+siruri_concatenate
+
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    ifstream f("siruri_concatenate.in");
+    ofstream g("siruri_concatenate.out");
+
+    char s[6000], temp[6000], t[1000][1000];
+    char *p;
+
+    long long n, good = 0;
+    f >> n;
+    f.getline(s, 2);
+    for (int i = 0; i < n; i++)
+    {
+        f.getline(s, 6000);
+        strncpy(temp, s, strlen(s) / 2);
+        strcat(temp, "\0");
+        if (strstr(temp, s + strlen(s) / 2) != NULL)
+            good++;
+    }
+
+    g << good;
+    f.close();
+    g.close();
+    return 0;
+}
+
+countwords
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    char s[100000] = "Ana are mere si prune si pere, insa Ana nu are masina si casa.", temp[1000], *p;
+    map<string, int> mp;
+
+    cin.getline(s, 100000);
+
+    p = strtok(s, " ,.;?!/:}]{[");
+    while (p)
+    {
+        if (mp.find(p) == mp.end())
+        {
+            mp[p] = 0;
+        }
+        mp[p]++;
+        p = strtok(NULL, " ,.;?!/:}]{[");
+    }
+
+    for (auto i = mp.begin(); i != mp.end(); i++)
+        cout << i->first << " " << i->second << endl;
+
+    return 0;
+}
+
+prosirx
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    char s[10000], temp[1000], *p, t[1000][1000], cX[1000], sm[1000];
+
+    ifstream f("prosirx.in");
+    ofstream g("prosirx.out");
+
+    f.getline(s, 1000);
+
+    int cons = 0, words = 0;
+
+    strcpy(sm, s);
+    strcpy(temp, sm);
+    strcpy(sm, " ");
+    strcat(sm, temp);
+    strcat(sm, " ");
+
+    for (int i = 0; i < strlen(sm); i++)
+    {
+        if (sm[i - 1] == ' ' && sm[i] != ' ')
+            sm[i] = 'X';
+    }
+    strncpy(cX, sm + 1, strlen(sm) - 2);
+    strcat(cX, "\0");
+
+    p = strtok(s, " ");
+    while (p)
+    {
+        for (int i = 0; i < strlen(p); i++)
+            if (strchr("aeiou", p[i]) == NULL)
+                cons++;
+
+        strcpy(t[words++], p);
+        p = strtok(NULL, " ");
+    }
+    bool is = true;
+    do
+    {
+        is = false;
+        for (int i = 0; i < words - 1; i++)
+        {
+            if (strcmp(t[i], t[i + 1]) > 0)
+            {
+                strcpy(temp, t[i]);
+                strcpy(t[i], t[i + 1]);
+                strcpy(t[i + 1], temp);
+                is = true;
+            }
+        }
+
+    } while (is);
+
+    g << cons << endl;
+    g << cX << endl;
+    for (auto i = 0; i < words; i++)
+        g << t[i] << " ";
+
+    f.close();
+    g.close();
+
+    return 0;
+}
+
+cuvinte7
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    //ifstream f("in.in");
+    char s[1000], temp[1000], arr[1000][1000];
+    int n, k;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> temp;
+        strcpy(arr[i], temp);
+    }
+    cin >> k;
+    bool is = true;
+    do
+    {
+        is = false;
+        for (int i = 0; i < n - 1; i++)
+        {
+            if (strlen(arr[i]) != k && strlen(arr[i + 1]) == k)
+            {
+                strcpy(temp, arr[i]);
+                strcpy(arr[i], arr[i + 1]);
+                strcpy(arr[i + 1], temp);
+                is = true;
+            }
+        }
+    } while (is);
+    for (auto i = 0; i < n; i++)
+        cout << arr[i] << " ";
+
+    return 0;
+}
+
+numeprenume
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    //ifstream f("in.in");
+    char s[1000], s2[1000], temp[1000] = " ", arr[1000][1000], done[1000];
+    cin >> s;
+    cin >> s2;
+
+    for (auto i = 0; i < strlen(s2); i++)
+    {
+        if (strchr("aeiouAEIOU", s2[i]) == NULL)
+        {
+            cout << s2[i];
+        }
+    }
+    cout << " " << s;
+
+    return 0;
+}
+
+frecventa
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <set>
+#include <map>
+
+using namespace std;
+
+char s[1000], temp[1000];
+
+void spaceRemover()
+{
+    char *p;
+    p = strtok(s, " ");
+    while (p)
+    {
+        strcat(temp, p);
+        p = strtok(NULL, " ");
+    }
+    strcpy(s, temp);
+}
+
+int main()
+{
+    //ifstream f("in.in");
+    cin.getline(s, 1000);
+    spaceRemover();
+    map<char, int> mp, mp2;
+    for (int i = 0; i < strlen(s); i++)
+    {
+        if (s[i] >= 'a' && s[i] <= 'z')
+        {
+            if (mp.find(s[i]) == mp.end())
+            {
+                mp[s[i]] = 0;
+            }
+            mp[s[i]]++;
+        }
+    }
+
+    int biggest = 0;
+
+    for (auto i = mp.begin(); i != mp.end(); i++)
+    {
+        if (i->second > biggest)
+        {
+            biggest = i->second;
+        }
+    }
+
+    int j = 0;
+    char k[1000][1000], x;
+    for (auto i = mp.begin(); i != mp.end(); i++)
+    {
+        if (i->second == biggest)
+        {
+            x = i->first;
+            k[j++][0] = x;
+        }
+    }
+    char tm[10];
+    bool is = true;
+    do
+    {
+        is = false;
+        for (int i = 0; i < j - 1; i++)
+        {
+
+            if (strcmp(k[i], k[i + 1]) > 0)
+            {
+                strcpy(tm, k[i]);
+                strcpy(k[i], k[i + 1]);
+                strcpy(k[i + 1], tm);
+                is = true;
+            }
+        }
+    } while (is);
+
+    cout << k[0];
+
+    return 0;
+}
+
+cifmax
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <set>
+#include <map>
+
+using namespace std;
+
+char s[1000], temp[1000];
+
+void spaceRemover()
+{
+    char *p;
+    p = strtok(s, " ,.");
+    while (p)
+    {
+        strcat(temp, p);
+        p = strtok(NULL, " ,.");
+    }
+    strcpy(s, temp);
+}
+
+int main()
+{
+    cin.getline(s,1000);
+    //ifstream f("in.in");
+    map<char, int> mp, mp2;
+    bool was = false;
+    for (int i = 0; i < strlen(s); i++)
+    {
+        if (strchr("1234567890", s[i]) != NULL)
+        {
+            was = true;
+            if (mp.find(s[i]) == mp.end())
+                mp[s[i]] = 0;
+            mp[s[i]]++;
+        }
+    }
+
+    int biggest = 0;
+
+    for (auto i = mp.begin(); i != mp.end(); i++)
+    {
+        if (i->second > biggest)
+        {
+            biggest = i->second;
+        }
+    }
+
+    int j = 0;
+    int k[1000];
+    char x;
+    for (auto i = mp.begin(); i != mp.end(); i++)
+    {
+        if (i->second == biggest)
+        {
+            x = i->first;
+            k[j++] = x - '0';
+        }
+    }
+    bool is = true;
+    do
+    {
+        is = false;
+        for (int i = 0; i < j - 1; i++)
+        {
+            if (k[i] > k[i + 1])
+            {
+                int tem = k[i];
+                k[i] = k[i + 1];
+                k[i + 1] = tem;
+                is = true;
+            }
+        }
+
+    } while (is);
+
+    if (was)
+        cout << k[0];
+    else
+        cout << "NU";
+    return 0;
+}
+
+
+cuvinte5
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+
+    char s[5000],m[1000][1000];
+
+    cin.getline(s, 5000);
+    char *p;
+    p = strtok(s, " ");
+    int j = 0, nr = 0;
+    while (p)
+    {
+        if (strlen(p) == 3)
+            nr++;
+        strcpy(m[j++], p);
+        p = strtok(NULL, " ");
+    }
+    cout << nr << endl;
+    int biggest = 0;
+    for (int i = 0; i < j; i++)
+    {
+        if (strlen(m[i]) > biggest)
+            biggest = strlen(m[i]);
+        if (strchr("aeiouAEIOU", m[i][0]) != NULL && strchr("aeiouAEIOU", m[i][strlen(m[i]) - 1]) != NULL)
+            cout << m[i] << endl;
+    }
+    cout << biggest;
+    return 0;
+	
+}
+
+vigenere
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+ifstream f("vigenere.in");
+ofstream g("vigenere.out");
+char a[260], b[260];
+int v[260];
+int main()
+{
+    f >> a >> b;
+    int i = 0;
+    int n = strlen(b);
+    while (a[i])
+    {
+        v[i] = a[i] + b[i % n];
+        i++;
+    }
+    for (int k = 0; k < i; ++k)
+    {
+        v[k] -= 'a';
+        if (v[k] > 'z')
+            v[k] = v[k] - 'z' + 'a' - 1;
+        g << (char)v[k];
+    }
+    return 0;
+}
+
+acronim
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
+
+using namespace std;
+
+char s[1000], temp[1000];
+
+int main()
+{
+    cin.getline(s, 1000);
+    char *p;
+    p = strtok(s, " ");
+    while (p)
+    {
+        if (p[0] >= 'A' && p[0] <= 'Z')
+            cout << p[0];
+        p = strtok(NULL, " ");
+    }
+
+    return 0;
+}
+
+afin
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+ifstream f("afin.in");
+ofstream g("afin.out");
+char s[100000];
+int main()
+{
+    int a, b;
+    f >> a >> b;
+    f >> s;
+    int i = 0;
+    while (s[i])
+    {
+        int x = s[i] - 'a';
+        int d = (a * x + b) % 26;
+        d += 'a';
+        s[i] = (char)d;
+        i++;
+    }
+    g << s;
+    return 0;
+}
+
+cuvinte9
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+
+    char s[1000], temp[1000], m[1000][1000];
+
+    cin.getline(s, 1000);
+    char *p;
+    p = strtok(s, " ");
+    int j = 0;
+    while (p)
+    {
+        if (strchr("1234567890", p[0]) != NULL)
+            strcpy(m[j++], p);
+        p = strtok(NULL, " ");
+    }
+    bool is = true;
+    do
+    {
+        is = false;
+        for (int i = 0; i < j - 1; i++)
+        {
+            if (m[i][0] - '0' < m[i + 1][0] - '0')
+            {
+                strcpy(temp, m[i]);
+                strcpy(m[i], m[i + 1]);
+                strcpy(m[i + 1], temp);
+                is = true;
+            }
+        }
+
+    } while (is);
+
+    if (j != 0)
+        cout << m[0];
+    else
+        cout << "nu exista";
+
+    return 0;
+}
+
+prosir
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    ifstream f("prosir.in");
+    ofstream g("prosir.out");
+    char s[1001];
+
+    f.getline(s, 1000);
+
+    for (int i = 0; i < strlen(s); i++)
+        if ((s[i + 1] == ' ' || s[i + 1] == '.') && s[i] != ' ')
+            s[i] = '5';
+
+    g << s;
+
+    f.close();
+    g.close();
+}
+
+bac_cuvinte
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <set>
+#include <map>
+
+using namespace std;
+
+char s[1000], temp[1000];
+int n;
+
+int main()
+{
+    cin.getline(s, 1000);
+    cin>>n;
+    char *p;
+    bool was = false;
+    p = strtok(s, " ");
+    while (p)
+    {
+        if (strlen(p) == n)
+        {
+            cout << p << endl;
+            was = true;
+        }
+
+        p = strtok(NULL, " ");
+    }
+    if (!was)
+        cout << "nu exista";
+
+    return 0;
+}
+
+caractere
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+
+    //ifstream f("in.in");
+    //ofstream g("out.out");
+
+    char s[1001], temp[1000], arr[1000][1000], s2[1000];
+
+    cin.getline(s, 1000);
+    cin.getline(s2, 1000);
+
+    for (int i = 0; i < strlen(s); i++)
+    {
+        if (strchr(s2, s[i]) != NULL)
+        {
+            cout << s[i];
+        }
+    }
+
+    return 0;
+}
+
